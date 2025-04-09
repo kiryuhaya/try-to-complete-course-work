@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<h2>Введите текст для проверки</h2>
+<form method="post" action="{{ url_for('index') }}">
+    <textarea name="text_to_check" rows="8" placeholder="Введите текст здесь..." required></textarea>
+    <br>
+    <button type="submit">Проверить текст</button>
+</form>
+{% if result %}
+<div class="result">
+    <h3>Результат проверки:</h3>
+    <p>{{ result }}</p>
+</div>
+{% endif %}
+{% endblock %}

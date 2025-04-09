@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}AI Text Checker{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Проверка машинной генерации текста</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Главная</a></li>
+                {% if session.get('user_id') %}
+                    <li><a href="{{ url_for('dashboard') }}">Личный кабинет</a></li>
+                    <li><a href="{{ url_for('logout') }}">Выход</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Вход</a></li>
+                    <li><a href="{{ url_for('register') }}">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flashes">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2025 Проверка текста</p>
+    </footer>
+</body>
+</html>
